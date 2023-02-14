@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewmodel"
+            type="com.ruhul.letschatdemo.fragments.login.LogInViewModel" />
+
+    </data>
+
+    <androidx.core.widget.NestedScrollView
+        style="@style/ScrollRoot"
+        tools:ignore="LabelFor,Autofill">
+
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:id="@+id/view_holder"
+            style="@style/StyleRoot">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_otp" />
+
+            <LinearLayout style="@style/FView">
+
+                <LinearLayout
+                    style="@style/VWView"
+                    android:layout_marginTop="190dp"
+                    android:background="@drawable/shape_home_bg"
+                    android:elevation="5dp"
+                    android:padding="20dp"
+                    android:paddingTop="5dp">
+
+                    <TextView
+                        style="@style/TxtSemiStyle"
+                        android:layout_marginTop="15dp"
+                        android:text="@string/txt_otp_verification"
+                        android:textSize="22sp" />
+
+                    <TextView
+                        style="@style/TxtRgStyle"
+                        android:layout_marginTop="15dp"
+                        app:main="@{@string/txt_enter_otp+` `+viewmodel.country.noCode+` `+viewmodel.mobile}"
+                        app:secondText="@{viewmodel.country.noCode+` `+viewmodel.mobile}" />
+
+                    <LinearLayout
+                        style="@style/LView"
+                        android:layout_marginTop="20dp">
+
+                        <EditText
+                            android:id="@+id/edt_one"
+                            style="@style/EdtOTPStyle"
+                            android:text="@={viewmodel.otpOne}" />
+
+                        <View
+                            style="@style/LWView"
+                            android:layout_height="1dp" />
+
+                        <EditText
+                            android:id="@+id/edt_two"
+                            style="@style/EdtOTPStyle"
+                            android:text="@={viewmodel.otpTwo}" />
+
+                        <View
+                            style="@style/LWView"
+                            android:layout_height="1dp" />
+
+                        <EditText
+                            android:id="@+id/edt_three"
+                            style="@style/EdtOTPStyle"
+                            android:text="@={viewmodel.otpThree}" />
+
+                        <View
+                            style="@style/LWView"
+                            android:layout_height="1dp" />
+
+                        <EditText
+                            android:id="@+id/edt_four"
+                            style="@style/EdtOTPStyle"
+                            android:text="@={viewmodel.otpFour}" />
+
+                        <View
+                            style="@style/LWView"
+                            android:layout_height="1dp" />
+
+                        <EditText
+                            android:id="@+id/edt_five"
+                            style="@style/EdtOTPStyle"
+                            android:text="@={viewmodel.otpFive}" />
+
+                        <View
+                            style="@style/LWView"
+                            android:layout_height="1dp" />
+
+                        <EditText
+                            android:id="@+id/edt_six"
+                            style="@style/EdtOTPStyle"
+                            android:text="@={viewmodel.otpSix}" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        style="@style/LView"
+                        android:layout_marginTop="20dp"
+                        android:gravity="center">
+
+                        <TextView
+                            style="@style/TxtRgStyle"
+                            android:layout_marginEnd="5dp"
+                            android:text="@string/txt_dont_receive"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            style="@style/TxtRgStyle"
+                            android:fontFamily="@font/font_semi"
+                            android:onClick="@{() -> viewmodel.resendClicked()}"
+                            android:text="@{viewmodel.resendTxt}"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/btn_verify"
+                        style="@style/BtnStyle"
+                        android:layout_marginTop="80dp"
+                        android:text="@string/txt_verify" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </androidx.core.widget.NestedScrollView>
+</layout>
