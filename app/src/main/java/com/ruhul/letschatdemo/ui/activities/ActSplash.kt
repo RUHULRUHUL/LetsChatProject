@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.firestore.CollectionReference
 import com.ruhul.letschatdemo.R
-import com.ruhul.letschatdemo.fragments.login.LogInActivity
 import com.ruhul.letschatdemo.utils.MPreference
 import com.ruhul.letschatdemo.utils.UserUtils
 import dagger.hilt.android.AndroidEntryPoint

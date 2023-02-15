@@ -127,10 +127,10 @@ class FLogin : Fragment() {
                 progressView?.dismiss()
             }
 
-            viewModel.getTaskResult().observe(viewLifecycleOwner) { taskId ->
+/*            viewModel.getTaskResult().observe(viewLifecycleOwner) { taskId ->
                 if (taskId != null && viewModel.getCredential().value?.smsCode.isNullOrEmpty())
                     viewModel.fetchUser(taskId)
-            }
+            }*/
 
             viewModel.userProfileGot.observe(viewLifecycleOwner) { success ->
                 if (success && viewModel.getCredential().value?.smsCode.isNullOrEmpty()

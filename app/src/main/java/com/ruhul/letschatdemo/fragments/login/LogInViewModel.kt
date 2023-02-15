@@ -1,5 +1,6 @@
 package com.ruhul.letschatdemo.fragments.login
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.CountDownTimer
 import androidx.lifecycle.LiveData
@@ -7,6 +8,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.firestore.FirebaseFirestore
 import com.ruhul.letschatdemo.R
@@ -109,6 +112,7 @@ constructor(@ApplicationContext private val context: Context,
         }
     }
 
+    @SuppressLint("SuspiciousIndentation")
     fun resetTimer() {
         canResend = false
         resendTxt.value = ""
@@ -180,15 +184,14 @@ constructor(@ApplicationContext private val context: Context,
     private fun saveMobile() =
        preference.saveMobile(ModelMobile(country.value!!.noCode,mobile.value!!))
 
-    fun fetchUser(taskId: Task<AuthResult>) {
+    fun fetchUser(auth: FirebaseAuth) {
         val db = FirebaseFirestore.getInstance()
-        val user = taskId.result?.user
-        Timber.v("FetchUser:: ${user?.uid}")
-        val noteRef = db.document("Users/" + user?.uid)
+        Timber.v("FetchUser:: ${auth?.uid}")
+        val noteRef = db.document("Users/" + auth?.uid)
         noteRef.get()
             .addOnSuccessListener { data ->
                 Timber.v("Uss:: ${preference.getUid()}")
-                preference.setUid(user?.uid.toString())
+                preference.setUid(auth?.uid.toString())
                 Timber.v("Uss11:: ${preference.getUid()}")
                 preference.setLogin()
                 preference.setLogInTime()

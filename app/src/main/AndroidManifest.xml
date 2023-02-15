@@ -39,9 +39,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:targetApi="q">
-        <activity
-            android:name=".fragments.login.LogInActivity"
-            android:exported="false" />
 
         <receiver
             android:name="com.ruhul.letschatdemo.utils.GroupMsgActionReceiver"
@@ -63,8 +60,7 @@
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/Base.Theme.AppCompat" />
+            android:screenOrientation="portrait"/>
 
         <provider
             android:name="androidx.core.content.FileProvider"

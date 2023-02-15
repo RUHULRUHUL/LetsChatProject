@@ -1,24 +1,28 @@
 package com.ruhul.letschatdemo.fragments.login
 
-import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.ruhul.letschatdemo.R
 import com.ruhul.letschatdemo.databinding.FragmentSignInEmailBinding
+import com.ruhul.letschatdemo.utils.MPreference
 import com.ruhul.letschatdemo.utils.isValidDestination
 
 class SignInEmailFragment : Fragment() {
 
     private lateinit var binding: FragmentSignInEmailBinding
     private lateinit var auth: FirebaseAuth
+
+    private val viewModel by activityViewModels<LogInViewModel>()
 
 
     override fun onCreateView(
@@ -28,6 +32,9 @@ class SignInEmailFragment : Fragment() {
         binding = FragmentSignInEmailBinding.inflate(inflater)
         auth = Firebase.auth
 
+/*        if (auth.currentUser!=null){
+            findNavController().navigate(R.id.action_FLogIn_to_FSingleChatHome)
+        }*/
 
         binding.signUpButton.setOnClickListener {
             signUp()
@@ -79,8 +86,12 @@ class SignInEmailFragment : Fragment() {
                 binding.passwordEdiText.text.toString().trim()
             ).addOnCompleteListener(requireActivity()) { task ->
                 if (task.isSuccessful) {
-                    if (findNavController().isValidDestination(R.id.FLogIn))
-                        findNavController().navigate(R.id.action_FLogIn_to_FProfile)
+                    Toast.makeText(
+                        requireContext(), "log in Success",
+                        Toast.LENGTH_SHORT
+                    ).show()
+
+                    getFetchUserProfile()
 
                 } else {
                     Toast.makeText(
@@ -93,6 +104,18 @@ class SignInEmailFragment : Fragment() {
         } else {
             Toast.makeText(requireContext(), "check this field", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun getFetchUserProfile() {
+        viewModel.fetchUser(auth)
+        val preference = MPreference(requireContext())
+        Log.d("getFetchUserProfile", preference.getUid().toString())
+
+        Log.d("getFetchUserProfile", "auth Id" + auth.uid.toString())
+
+/*        if (findNavController().isValidDestination(R.id.FLogIn)){
+            findNavController().navigate(R.id.action_FLogIn_to_FProfile)
+        }*/
     }
 
 

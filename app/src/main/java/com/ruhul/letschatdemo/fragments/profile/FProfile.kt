@@ -64,11 +64,11 @@ class FProfile : Fragment() {
     }
 
     private fun subscribeObservers() {
-        viewModel.progressProPic.observe(viewLifecycleOwner, { uploaded ->
+        viewModel.progressProPic.observe(viewLifecycleOwner) { uploaded ->
             binding.progressPro.toggle(uploaded)
-        })
+        }
 
-        viewModel.profileUpdateState.observe(viewLifecycleOwner, {
+        viewModel.profileUpdateState.observe(viewLifecycleOwner) {
             when (it) {
                 is LoadState.OnSuccess -> {
                     if (findNavController().isValidDestination(R.id.FProfile)) {
@@ -83,9 +83,9 @@ class FProfile : Fragment() {
                     progressView?.show()
                 }
             }
-        })
+        }
 
-        viewModel.checkUserNameState.observe(viewLifecycleOwner,{
+        viewModel.checkUserNameState.observe(viewLifecycleOwner) {
             when (it) {
                 is LoadState.OnFailure -> {
                     progressView?.dismiss()
@@ -93,8 +93,9 @@ class FProfile : Fragment() {
                 is LoadState.OnLoading -> {
                     progressView?.show()
                 }
+                else -> {}
             }
-        })
+        }
     }
 
     private fun validate() {

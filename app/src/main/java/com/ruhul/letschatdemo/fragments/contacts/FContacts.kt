@@ -59,26 +59,26 @@ class FContacts @Inject constructor(private val preference: MPreference) : Fragm
     }
 
     private fun subscribeObservers() {
-        viewModel.getContacts().observe(viewLifecycleOwner, { contacts->
+        viewModel.getContacts().observe(viewLifecycleOwner) { contacts ->
             LogMessage.v("Size ${contacts.size}")
-            val allContacts=contacts.filter { it.locallySaved }
+            val allContacts = contacts.filter { it.locallySaved }
             if (allContacts.isEmpty() && viewModel.queryState.value == null)
                 viewModel.startQuery()
             else {
                 viewModel.setContactCount(allContacts.size)
                 contactList.clear()
-                contactList= allContacts as ArrayList<ChatUser>
+                contactList = allContacts as ArrayList<ChatUser>
                 adContact = AdContact(requireContext(), contactList)
                 binding.listContact.adapter = adContact
-                if(searchItem.isActionViewExpanded)
+                if (searchItem.isActionViewExpanded)
                     adContact.filter(searchView.query.toString())
             }
-        })
+        }
 
-        viewModel.queryState.observe(viewLifecycleOwner,{
+        viewModel.queryState.observe(viewLifecycleOwner) {
             searchItem.isEnabled = it !is LoadState.OnLoading
             menuRefresh.isEnabled = it !is LoadState.OnLoading
-        })
+        }
     }
 
     private fun setDataInView() {

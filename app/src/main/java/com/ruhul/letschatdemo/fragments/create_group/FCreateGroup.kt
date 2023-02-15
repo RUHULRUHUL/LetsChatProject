@@ -72,14 +72,14 @@ class FCreateGroup : Fragment() {
     }
 
     private fun subscribeObservers() {
-        viewModel.groupCreateStatus.observe(viewLifecycleOwner,{
+        viewModel.groupCreateStatus.observe(viewLifecycleOwner) {
             when (it) {
                 is LoadState.OnSuccess -> {
                     if (findNavController().isValidDestination(R.id.FCreateGroup)) {
                         progressView?.dismiss()
-                        val group=it.data as Group
+                        val group = it.data as Group
                         preference.setCurrentGroup(group.id)
-                        val action=FCreateGroupDirections.actionFCreateGroupToFGroupChat(group)
+                        val action = FCreateGroupDirections.actionFCreateGroupToFGroupChat(group)
                         findNavController().navigate(action)
                     }
                 }
@@ -90,7 +90,7 @@ class FCreateGroup : Fragment() {
                     progressView?.show()
                 }
             }
-        })
+        }
     }
 
     private fun validate() {

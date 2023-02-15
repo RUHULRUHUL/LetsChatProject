@@ -200,12 +200,12 @@ class MainActivity : ActBase() {
             }
         })
 
-        sharedViewModel.getState().observe(this, { state ->
+        sharedViewModel.getState().observe(this) { state ->
             if (state is ScreenState.SearchState && searchView.isIconified) {
                 searchItem.expandActionView()
                 searchView.setQuery(sharedViewModel.getLastQuery().value, false)
             }
-        })
+        }
 
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {

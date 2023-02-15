@@ -165,16 +165,16 @@ class FVerify : Fragment() {
                 }
             }
 
-            viewModel.getTaskResult().observe(viewLifecycleOwner) { taskId ->
+/*            viewModel.getTaskResult().observe(viewLifecycleOwner) { taskId ->
                 taskId?.let {
                     viewModel.fetchUser(taskId)
                 }
-            }
+            }*/
 
-            viewModel.userProfileGot.observe(viewLifecycleOwner) { success ->
+/*            viewModel.userProfileGot.observe(viewLifecycleOwner) { success ->
                 if (success && findNavController().isValidDestination(R.id.FVerify))
                     findNavController().navigate(R.id.action_FVerify_to_FProfile)
-            }
+            }*/
         } catch (e: Exception) {
             e.printStackTrace()
         }
