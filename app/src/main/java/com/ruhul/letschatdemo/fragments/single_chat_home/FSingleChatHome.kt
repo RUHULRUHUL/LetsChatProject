@@ -95,17 +95,17 @@ class FSingleChatHome : Fragment(),ItemClickListener {
             }
         }
 
-        sharedViewModel.getState().observe(viewLifecycleOwner,{state->
-            if (state is ScreenState.IdleState){
+        sharedViewModel.getState().observe(viewLifecycleOwner) { state ->
+            if (state is ScreenState.IdleState) {
                 CoroutineScope(Dispatchers.IO).launch {
                     updateList(viewModel.getChatUsersAsList())
                 }
             }
-        })
-        sharedViewModel.lastQuery.observe(viewLifecycleOwner,{
+        }
+        sharedViewModel.lastQuery.observe(viewLifecycleOwner) {
             if (sharedViewModel.getState().value is ScreenState.SearchState)
                 adChat.filter(it)
-        })
+        }
     }
 
     private suspend fun updateList(list: List<ChatUserWithMessages>) {
@@ -115,8 +115,9 @@ class FSingleChatHome : Fragment(),ItemClickListener {
                 binding.imageEmpty.gone()
                 chatList = filteredList as MutableList<ChatUserWithMessages>
                 //sort by recent message
-                chatList = filteredList.sortedByDescending { it.messages.last().createdAt }
-                    .toMutableList()
+                chatList = filteredList.sortedByDescending {
+                    it.messages.last().createdAt
+                }.toMutableList()
                 AdSingleChatHome.allChatList=chatList
                 adChat.submitList(chatList)
                 if(sharedViewModel.getState().value is ScreenState.SearchState)

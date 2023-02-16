@@ -133,7 +133,7 @@
     <style name="CustomToolBar">
         <item name="android:id">@id/toolbar</item>
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">?attr/actionBarSize</item>
+        <item name="android:layout_height">50dp</item>
         <item name="background">?attr/colorPrimary</item>
         <item name="elevation">4dp</item>
         <item name="titleTextColor">@color/colorWhite</item>

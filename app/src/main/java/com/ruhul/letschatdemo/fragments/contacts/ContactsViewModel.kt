@@ -48,7 +48,7 @@ class ContactsViewModel @Inject constructor(
 
     fun startQuery() {
         try {
-            queryState.value=LoadState.OnLoading
+          //  queryState.value=LoadState.OnLoading
             val success=UserUtils.updateContactsProfiles(onQueryCompleted)
             if (!success)
                 queryState.value=LoadState.OnFailure(java.lang.Exception("Recursion exception"))

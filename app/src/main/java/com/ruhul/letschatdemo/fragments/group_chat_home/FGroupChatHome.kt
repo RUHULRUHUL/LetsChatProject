@@ -68,18 +68,18 @@ class FGroupChatHome : Fragment(),ItemClickListener{
             }
         }
 
-        sharedViewModel.getState().observe(viewLifecycleOwner,{state->
-            if (state is ScreenState.IdleState){
+        sharedViewModel.getState().observe(viewLifecycleOwner) { state ->
+            if (state is ScreenState.IdleState) {
                 CoroutineScope(Dispatchers.IO).launch {
                     updateList(viewModel.getGroupMessagesAsList())
                 }
             }
-        })
+        }
 
-        sharedViewModel.lastQuery.observe(viewLifecycleOwner,{
+        sharedViewModel.lastQuery.observe(viewLifecycleOwner) {
             if (sharedViewModel.getState().value is ScreenState.SearchState)
                 adGroupHome.filter(it)
-        })
+        }
     }
 
     private suspend fun updateList(groupWithmsgs: List<GroupWithMessages>) {

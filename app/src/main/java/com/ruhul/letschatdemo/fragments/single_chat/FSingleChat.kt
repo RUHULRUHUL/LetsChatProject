@@ -249,9 +249,9 @@ class FSingleChat : Fragment(), ItemClickListener,CustomEditText.KeyBoardInputCa
 
     private fun subscribeObservers() {
         //pass messages list for recycler to show
-        viewModel.chatUserOnlineStatus.observe(viewLifecycleOwner, {
+        viewModel.chatUserOnlineStatus.observe(viewLifecycleOwner) {
             Utils.setOnlineStatus(binding.viewChatHeader.txtLastSeen, it, localUserId)
-        })
+        }
     }
 
     private fun openSaveIntent() {

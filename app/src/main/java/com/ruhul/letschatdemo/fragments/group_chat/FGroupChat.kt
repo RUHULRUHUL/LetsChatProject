@@ -191,16 +191,16 @@ class FGroupChat : Fragment(), ItemClickListener, CustomEditText.KeyBoardInputCa
     }
 
     private fun subscribeObservers() {
-        viewModel.getChatUsers().observe(viewLifecycleOwner, { chatUsers ->
+        viewModel.getChatUsers().observe(viewLifecycleOwner) { chatUsers ->
             AdGroupChat.chatUserList = chatUsers.toMutableList()
-        })
+        }
 
-        viewModel.typingUsers.observe(viewLifecycleOwner, { typingUser ->
+        viewModel.typingUsers.observe(viewLifecycleOwner) { typingUser ->
             if (typingUser.isEmpty())
                 BindingAdapters.setMemberNames(binding.viewChatHeader.txtMembers, group)
             else
                 binding.viewChatHeader.txtMembers.text = typingUser
-        })
+        }
     }
 
     private fun setDataInView() {

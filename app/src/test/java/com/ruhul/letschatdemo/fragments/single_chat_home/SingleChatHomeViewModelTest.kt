@@ -31,7 +31,7 @@ class SingleChatHomeViewModelTest {
 
     @Test
     fun insert_ChatUser() = runBlockingTest{
-        val chatUser=ChatUser("testId","Gowtham", UserProfile("testId",13232113L,123321321L),)
+        val chatUser=ChatUser("ruhulId","ruhul", UserProfile("testId",13232113L,123321321L),)
         viewModel.insertChatUser(chatUser)
         val chatUsers=viewModel.getAllChatUser().getOrAwaitValues()
         assertThat(chatUsers).contains(chatUser)

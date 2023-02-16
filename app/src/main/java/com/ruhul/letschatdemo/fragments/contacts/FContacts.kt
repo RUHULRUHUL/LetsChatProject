@@ -20,8 +20,9 @@ import javax.inject.Inject
 
 
 @AndroidEntryPoint
-class FContacts @Inject constructor(private val preference: MPreference) : Fragment(), ItemClickListener {
- 
+class FContacts @Inject constructor(private val preference: MPreference) : Fragment(),
+    ItemClickListener {
+
     private lateinit var binding: FContactsBinding
 
     private lateinit var context: Activity
@@ -41,7 +42,8 @@ class FContacts @Inject constructor(private val preference: MPreference) : Fragm
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?): View {
+        savedInstanceState: Bundle?
+    ): View {
         binding = FContactsBinding.inflate(layoutInflater, container, false)
         setHasOptionsMenu(true)
         return binding.root
@@ -59,21 +61,22 @@ class FContacts @Inject constructor(private val preference: MPreference) : Fragm
     }
 
     private fun subscribeObservers() {
-        viewModel.getContacts().observe(viewLifecycleOwner) { contacts ->
-            LogMessage.v("Size ${contacts.size}")
-            val allContacts = contacts.filter { it.locallySaved }
-            if (allContacts.isEmpty() && viewModel.queryState.value == null)
-                viewModel.startQuery()
-            else {
-                viewModel.setContactCount(allContacts.size)
-                contactList.clear()
-                contactList = allContacts as ArrayList<ChatUser>
-                adContact = AdContact(requireContext(), contactList)
-                binding.listContact.adapter = adContact
-                if (searchItem.isActionViewExpanded)
-                    adContact.filter(searchView.query.toString())
+        viewModel.getContacts()
+            .observe(viewLifecycleOwner) { contacts ->
+                LogMessage.v("Size ${contacts.size}")
+              //  val allContacts = contacts.filter { it.locallySaved }
+                if (contacts.isEmpty() )
+                    viewModel.startQuery()
+                else {
+                    viewModel.setContactCount(contacts.size)
+                    contactList.clear()
+                    contactList = contacts as ArrayList<ChatUser>
+                    adContact = AdContact(requireContext(), contactList)
+                    binding.listContact.adapter = adContact
+                    if (searchItem.isActionViewExpanded)
+                        adContact.filter(searchView.query.toString())
+                }
             }
-        }
 
         viewModel.queryState.observe(viewLifecycleOwner) {
             searchItem.isEnabled = it !is LoadState.OnLoading

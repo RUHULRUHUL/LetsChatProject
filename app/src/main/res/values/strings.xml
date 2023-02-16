@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">LetsChat</string>
+    <string name="app_name">LetsChatDemo</string>
     <string name="txt_otp_verification">OTP Verification</string>
     <string name="txt_will_send_otp">We will send you an <b> One Time Password </b>to this mobile number</string>
     <string name="txt_enter_otp">Enter the OTP sent to </string>

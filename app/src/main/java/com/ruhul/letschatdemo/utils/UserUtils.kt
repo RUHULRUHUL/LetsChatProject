@@ -138,8 +138,8 @@ object UserUtils {
                 cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME))
             val number =
                 cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
-            if(number.contains(preference.getMobile()!!.number))
-                continue
+//            if(number.contains(preference.getMobile()!!.number))
+//                continue
             names.add(name)
             numbers.add(number)
             contacts.add(Contact(name, number))

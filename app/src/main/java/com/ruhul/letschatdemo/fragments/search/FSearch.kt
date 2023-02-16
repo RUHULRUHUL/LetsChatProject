@@ -68,7 +68,7 @@ class FSearch : Fragment(R.layout.f_search), ItemClickListener {
 
 
     private fun subscribeObservers() {
-        sharedViewModel.getState().observe(viewLifecycleOwner, { state ->
+        sharedViewModel.getState().observe(viewLifecycleOwner) { state ->
             if (state is ScreenState.IdleState) {
                 //show recent list
                 binding.txtNoUser.gone()
@@ -79,7 +79,7 @@ class FSearch : Fragment(R.layout.f_search), ItemClickListener {
                     binding.txtNoUser.gone()
                 }
             }
-        })
+        }
 
         lifecycleScope.launch {
             viewModel.getCachedList().collect { listData ->
@@ -88,7 +88,7 @@ class FSearch : Fragment(R.layout.f_search), ItemClickListener {
             }
         }
 
-        viewModel.getLoadState().observe(viewLifecycleOwner, { state ->
+        viewModel.getLoadState().observe(viewLifecycleOwner) { state ->
             userList.clear()
             adapter.notifyDataSetChanged()
             when (state) {
@@ -123,9 +123,9 @@ class FSearch : Fragment(R.layout.f_search), ItemClickListener {
                     }
                 }
             }
-        })
+        }
 
-        sharedViewModel.lastQuery.observe(viewLifecycleOwner, {
+        sharedViewModel.lastQuery.observe(viewLifecycleOwner) {
             if (sharedViewModel.getState().value is ScreenState.SearchState) {
                 if (it.isBlank()) {
                     binding.apply {
@@ -138,7 +138,7 @@ class FSearch : Fragment(R.layout.f_search), ItemClickListener {
                 } else
                     viewModel.makeQuery(it.toLowerCase(Locale.getDefault()))
             }
-        })
+        }
     }
 
     override fun onItemClicked(v: View, position: Int) {

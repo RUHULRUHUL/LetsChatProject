@@ -32,9 +32,6 @@ class SignInEmailFragment : Fragment() {
         binding = FragmentSignInEmailBinding.inflate(inflater)
         auth = Firebase.auth
 
-/*        if (auth.currentUser!=null){
-            findNavController().navigate(R.id.action_FLogIn_to_FSingleChatHome)
-        }*/
 
         binding.signUpButton.setOnClickListener {
             signUp()

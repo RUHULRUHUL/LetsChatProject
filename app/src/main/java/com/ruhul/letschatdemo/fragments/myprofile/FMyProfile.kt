@@ -80,12 +80,12 @@ class FMyProfile : Fragment(R.layout.f_my_profile) {
     }
 
     private fun subscribeObservers() {
-        viewModel.profileUpdateState.observe(viewLifecycleOwner, {
+        viewModel.profileUpdateState.observe(viewLifecycleOwner) {
             if (it is LoadState.OnLoading) {
                 progressView?.show()
             } else
                 progressView?.dismiss()
-        })
+        }
     }
 
     private fun initDialog() {

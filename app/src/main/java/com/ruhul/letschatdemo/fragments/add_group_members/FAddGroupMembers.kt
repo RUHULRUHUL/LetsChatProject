@@ -91,12 +91,12 @@ class FAddGroupMembers : Fragment(), ItemClickListener {
     }
 
     private fun subscribeObservers() {
-        viewModel.getChatList().observe(viewLifecycleOwner, { contacts ->
+        viewModel.getChatList().observe(viewLifecycleOwner) { contacts ->
             val allContacts = contacts.filter { it.locallySaved }
             if (allContacts.isNotEmpty()) {
                 if (viewModel.isFirstCall) {
                     viewModel.setContactList(allContacts)
-                    viewModel.isFirstCall=false
+                    viewModel.isFirstCall = false
                 }
                 Timber.v("allContacts ->${viewModel.getContactList().first().localName}")
                 contactList.clear()
@@ -106,24 +106,25 @@ class FAddGroupMembers : Fragment(), ItemClickListener {
                 if (!searchView.isIconified)
                     adContact.filter(searchView.query.toString())
             }
-        })
+        }
 
-        viewModel.getChipList().observe(viewLifecycleOwner, { addedList ->
+        viewModel.getChipList().observe(viewLifecycleOwner) { addedList ->
             AdChip.allAddedContacts = addedList
             adChip.submitList(addedList.toList())
             adChip.notifyDataSetChanged()
             if (addedList.isEmpty()) {
                 binding.txtEmptyMembers.show()
-                binding.fab.hide()} else {
+                binding.fab.hide()
+            } else {
                 binding.txtEmptyMembers.hide()
                 binding.fab.show()
                 binding.listChip.post {
                     binding.listChip.smoothScrollToPosition(addedList.lastIndex)
                 }
             }
-        })
+        }
 
-        viewModel.queryState.observe(viewLifecycleOwner, {
+        viewModel.queryState.observe(viewLifecycleOwner) {
             searchView.isEnabled = it !is LoadState.OnLoading
             when (it) {
                 is LoadState.OnSuccess -> {
@@ -132,7 +133,7 @@ class FAddGroupMembers : Fragment(), ItemClickListener {
                         binding.viewEmpty.show()
                         binding.progress.hide()
                         binding.viewEmpty.playAnimation()
-                    }else{
+                    } else {
                         binding.viewHolder.show()
                         binding.progress.hide()
                     }
@@ -148,7 +149,7 @@ class FAddGroupMembers : Fragment(), ItemClickListener {
                     binding.progress.show()
                 }
             }
-        })
+        }
     }
 
     private fun setDataInView() {
